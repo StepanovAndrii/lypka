@@ -1,23 +1,29 @@
-FROM mcr.microsoft.com/dotnet/aspnet:9.0 AS base
-USER $APP_UID
-WORKDIR /app
-EXPOSE 8080
-EXPOSE 8081
-
-FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
-ARG BUILD_CONFIGURATION=Release
+FROM mcr.microsoft.com/dotnet/sdk:9.0-bookworm-slim AS build
 WORKDIR /src
-COPY ["backend.csproj", "."]
-RUN dotnet restore "./backend.csproj"
+
+COPY Api/Api.csproj Api/
+COPY Infrastructure/Infrastructure.csproj Infrastructure/
+COPY Application/Application.csproj Application/
+COPY Domain/Domain.csproj Domain/
+RUN dotnet restore "./Api/Api.csproj"
+
 COPY . .
-WORKDIR "/src/."
-RUN dotnet build "./backend.csproj" -c $BUILD_CONFIGURATION -o /app/build
+ARG BUILD_CONFIGURATION=Release
+RUN dotnet build "./Api/Api.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "./backend.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "./Api/Api.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
-FROM base AS final
+FROM mcr.microsoft.com/dotnet/aspnet:9.0-bookworm-slim AS start
+
+RUN addgroup --gid 1000 backend \
+    && adduser --uid 1000 --gid 1000 --disabled-password --gecos "" backend
+
+USER backend
+
 WORKDIR /app
+EXPOSE 5000
+
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "backend.dll"]
+ENTRYPOINT ["dotnet", "Api.dll"]

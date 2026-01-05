@@ -10,8 +10,7 @@ services:
       - "80:8080"
       - "443:8443"
     depends_on:
-      backend:
-        condition: service_healthy
+      - backend
     networks:
       - backend_network
   backend:
@@ -19,7 +18,7 @@ services:
       context: ./backend
       dockerfile: Dockerfile
     env_file:
-      - backend.env
+      - .env
     networks:
       - backend_network
       - db_network
@@ -35,12 +34,14 @@ services:
       retries: 3
       start_period: 20s
   db:
-    image: postgres:latest
+    build:
+      context: ./db
+      dockerfile: Dockerfile
     volumes: 
       - ./db/init:/docker-entrypoint-initdb.d
       - db_data:/var/lib/postgresql/data
     env_file:
-      - db.env
+      - .env
     networks:
       - db_network
     expose:

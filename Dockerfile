@@ -11,12 +11,17 @@ COPY frontend/package.json frontend/package-lock.json ./
 RUN --mount=type=cache,target=/root/.npm npm ci
 
 COPY frontend/ .
-RUN npm run build --prod
+RUN npm run build -- --configuration production
 
 # Stage 2: Nginx
-FROM nginxinc/nginx-unprivileged:1.29.4-alpine3.23 as runner
+FROM nginxinc/nginx-unprivileged:alpine3.22-perl AS runner
 
-COPY --from=builder /app/dist /usr/share/nginx/html
+USER root
+RUN rm -rf /usr/share/nginx/html/*
+
+COPY --from=builder /app/dist/browser/. /usr/share/nginx/html/
+
+USER nginx
 
 EXPOSE 8080 8443
 CMD ["nginx", "-g", "daemon off;"]
