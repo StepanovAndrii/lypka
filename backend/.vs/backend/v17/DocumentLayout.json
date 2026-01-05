@@ -1,7 +1,12 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "C:\\Users\\stepanovandrii\\Desktop\\lypka\\backend\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{79347347-82D3-4CE5-8473-B4C35A68006D}|Api\\Api.csproj|c:\\users\\stepanovandrii\\desktop\\lypka\\backend\\api\\controllers\\healthcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{79347347-82D3-4CE5-8473-B4C35A68006D}|Api\\Api.csproj|solutionrelative:api\\controllers\\healthcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -9,11 +14,24 @@
       "DocumentGroups": [
         {
           "DockedWidth": 347,
-          "SelectedChildIndex": -1,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "HealthController.cs",
+              "DocumentMoniker": "C:\\Users\\stepanovandrii\\Desktop\\lypka\\backend\\Api\\Controllers\\HealthController.cs",
+              "RelativeDocumentMoniker": "Api\\Controllers\\HealthController.cs",
+              "ToolTip": "C:\\Users\\stepanovandrii\\Desktop\\lypka\\backend\\Api\\Controllers\\HealthController.cs",
+              "RelativeToolTip": "Api\\Controllers\\HealthController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAUAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-05T02:31:46.919Z",
+              "EditorCaption": ""
             }
           ]
         }

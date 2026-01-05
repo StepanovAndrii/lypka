@@ -17,6 +17,8 @@ RUN dotnet publish "./Api/Api.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p
 
 FROM mcr.microsoft.com/dotnet/aspnet:9.0-bookworm-slim AS start
 
+RUN apt-get update && apt-get install -y curl && rm -rf /var/lib/apt/lists/*
+
 RUN addgroup --gid 1000 backend \
     && adduser --uid 1000 --gid 1000 --disabled-password --gecos "" backend
 
